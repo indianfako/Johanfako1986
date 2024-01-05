@@ -1,6 +1,6 @@
 
-  "name": "codespaces-react",
-  "version": "0.1.0",
+  "name": "johanfakocode-react",
+  "version": "1.1.0",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
