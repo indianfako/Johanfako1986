@@ -1,0 +1,66 @@
+# Pridáme číslice do tabuľky kľúča
+kluc = {
+    "A": "Q",
+    "B": "W",
+    "C": "E",
+    "D": "R",
+    "E": "T",
+    "F": "Y",
+    "G": "U",
+    "H": "I",
+    "I": "O",
+    "J": "P",
+    "K": "A",
+    "L": "S",
+    "M": "D",
+    "N": "F",
+    "O": "G",
+    "P": "H",
+    "Q": "J",
+    "R": "K",
+    "S": "L",
+    "T": "Z",
+    "U": "X",
+    "V": "C",
+    "W": "V",
+    "X": "B",
+    "Y": "N",
+    "Z": "M",
+    "Á": "E",
+    "Ä": "I",
+    "Č": "X",
+    "Ď": "C",
+    "É": "U",
+    "Í": "O",
+    "Ľ": "V",
+    "Ĺ": "Z",
+    "Ň": "B",
+    "Ó": "G",
+    "Ô": "T",
+    "Ŕ": "N",
+    "Š": "Q",
+    "Ť": "W",
+    "Ú": "Y",
+    "Ý": "R",
+    "Ž": "P",
+    "0": "S", # priradíme číslici 0 písmeno S
+    "1": "K", # priradíme číslici 1 písmeno K
+    "2": "L", # priradíme číslici 2 písmeno L
+    "3": "Z", # priradíme číslici 3 písmeno Z
+    "4": "M", # priradíme číslici 4 písmeno M
+    "5": "N", # priradíme číslici 5 písmeno N
+    "6": "O", # priradíme číslici 6 písmeno O
+    "7": "P", # priradíme číslici 7 písmeno P
+    "8": "Q", # priradíme číslici 8 písmeno Q
+    "9": "R"  # priradíme číslici 9 písmeno R
+}
+# Napíšte správu, ktorú chcete zašifrovať
+sprava = "Mám 23 rokov a žijem v Bratislave."
+# Zavolajte funkciu sifruj a uložte výsledok do premennej sifra
+sifra = sifruj(sprava)
+# Vypíšte zašifrovanú správu
+print("Zašifrovaná správa je:", sifra)
+# Zavolajte funkciu desifruj a uložte výsledok do premennej sprava
+sprava = desifruj(sifra)
+# Vypíšte odšifrovanú správu
+print("Odšifrovaná správa je:", sprava)
