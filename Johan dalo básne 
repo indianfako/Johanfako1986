@@ -1,0 +1,31 @@
+# Importujeme modul random, ktorý nám umožní vytvárať náhodné čísla a výberať náhodné položky z zoznamov
+import random
+
+# Definujeme zoznamy slov, ktoré budeme používať na tvorbu básní
+podstatne_mena = ["láska", "smútok", "mesiac", "slnko", "more", "vietor", "sen", "kvety", "hviezdy", "srdce"]
+pridavne_mena = ["krásna", "smutná", "jasná", "temná", "hlboká", "ľahká", "tichá", "hlučná", "sladká", "trpká"]
+slovesa = ["svieti", "plače", "spieva", "tancuje", "lieta", "píše", "číta", "miluje", "nenávidí", "sníva"]
+prislovky = ["nežne", "silne", "rýchlo", "pomaly", "veselo", "smutne", "jasne", "tiho", "nahlas", "sladko"]
+
+# Definujeme funkciu, ktorá vytvorí náhodnú báseň
+def vytvor_basen():
+  # Vytvoríme prázdny reťazec, ktorý bude obsahovať našu báseň
+  basen = ""
+  # Vytvoríme náhodné číslo, ktoré určí počet veršov našej básne (od 2 do 5)
+  pocet_versov = random.randint(2, 5)
+  # Pre každý verš vykonáme nasledujúce kroky
+  for i in range(pocet_versov):
+    # Vyberieme náhodné slová z našich zoznamov
+    podstatne_meno = random.choice(podstatne_mena)
+    pridavne_meno = random.choice(pridavne_mena)
+    sloveso = random.choice(slovesa)
+    prislovka = random.choice(prislovky)
+    # Zostavíme verš z našich slov podľa schémy "prídavné meno + podstatné meno + sloveso + prislovka"
+    vers = pridavne_meno + " " + podstatne_meno + " " + sloveso + " " + prislovka + "\n"
+    # Pridáme verš do našej básne
+    basen += vers
+  # Vrátime našu báseň
+  return basen
+
+# Vypíšeme našu báseň
+print(vytvor_basen())
