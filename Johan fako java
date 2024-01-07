@@ -1,0 +1,33 @@
+// Funkcia na prevod desatinného čísla na binárny reťazec
+function dec2bin(dec) {
+  // Vytvoríme prázdny reťazec na uloženie binárneho kódu
+  let bin = "";
+  // Opakujeme, kým je dec väčšie ako nula
+  while (dec > 0) {
+    // Zistíme, či je dec párne alebo nepárne
+    // Ak je párne, pridáme 0 na začiatok binárneho reťazca
+    // Ak je nepárne, pridáme 1 na začiatok binárneho reťazca
+    bin = (dec % 2) + bin;
+    // Vydelíme dec dvomi a zaokrúhlime nadol
+    dec = Math.floor(dec / 2);
+  }
+  // Vrátime binárny reťazec
+  return bin;
+}
+
+// Funkcia na prevod binárneho reťazca na desatinné číslo
+function bin2dec(bin) {
+  // Vytvoríme premennú na uloženie desatinného čísla
+  let dec = 0;
+  // Vytvoríme premennú na uloženie mocniny dvojky
+  let pow = 1;
+  // Opakujeme, kým je binárny reťazec neprázdny
+  while (bin.length > 0) {
+    // Zoberieme posledný znak z binárneho reťazca
+    let digit = bin[bin.length - 1];
+    // Pridáme k dec hodnotu digit * pow
+    dec = dec + digit * pow;
+    // Zvýšime pow dvojnásobne
+    pow = pow * 2;
+    // Odstránime posledný znak z binárneho reťazca
+    bin = bin.slice(0, -1);
