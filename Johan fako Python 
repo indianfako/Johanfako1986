@@ -1,0 +1,3 @@
+# Tento program vypíše vaše meno
+name = input("Zadajte svoje meno: ") # Požiadajte užívateľa o zadanie mena
+print("Ahoj, " + name + "!") # Vypíšte pozdrav a meno
