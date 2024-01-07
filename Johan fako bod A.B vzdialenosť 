@@ -1,0 +1,32 @@
+# Importujeme modul math, ktorý nám poskytuje matematické funkcie
+import math
+
+# Definujeme funkciu, ktorá vypočíta vzdialenosť medzi dvomi bodmi na zemeguli
+def vypocitaj_vzdialenost(lat1, lon1, lat2, lon2):
+  # Prevod stupňov na radiány
+  lat1 = math.radians(lat1)
+  lon1 = math.radians(lon1)
+  lat2 = math.radians(lat2)
+  lon2 = math.radians(lon2)
+  # Výpočet rozdielov zemepisnej šírky a dĺžky
+  dlat = lat2 - lat1
+  dlon = lon2 - lon1
+  # Výpočet Haversinovho vzorca
+  a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+  c = 2 * math.asin(math.sqrt(a))
+  # Predpokladáme, že polomer zeme je 6371 km
+  r = 6371
+  # Výpočet vzdialenosti v kilometroch
+  d = c * r
+  # Vrátime vzdialenosť
+  return d
+
+# Testovanie funkcie
+# Vypočítame vzdialenosť medzi Bratislavou a Košicami
+lat1 = 48.1486 # Zemepisná šírka Bratislavy
+lon1 = 17.1077 # Zemepisná dĺžka Bratislavy
+lat2 = 48.7164 # Zemepisná šírka Košíc
+lon2 = 21.2611 # Zemepisná dĺžka Košíc
+d = vypocitaj_vzdialenost(lat1, lon1, lat2, lon2)
+# Vypíšeme výsledok
+print(f"Vzdialenosť medzi Bratislavou a Košicami je {d:.2f} km.")
