@@ -1,0 +1,18 @@
+# Definícia triedy Transaction
+class Transaction:
+    # Konštruktor triedy
+    def __init__(self, sender, receiver, amount, date):
+        self.sender = sender # Odosielateľ transakcie
+        self.receiver = receiver # Príjemca transakcie
+        self.amount = amount # Suma transakcie
+        self.date = date # Dátum transakcie
+
+    # Metóda, ktorá vráti textovú reprezentáciu transakcie
+    def __str__(self):
+        return f"{self.sender} sent {self.amount} to {self.receiver} on {self.date}"
+
+# Vytvorenie inštancie triedy Transaction
+t = Transaction("Alice", "Bob", 100, "2024-01-07")
+
+# Výpis transakcie
+print(t)
