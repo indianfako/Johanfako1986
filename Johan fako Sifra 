@@ -1,0 +1,110 @@
+# Toto je tabuľka, ktorá obsahuje kľúč na šifrovanie a odšifrovanie
+# Každé písmeno slovenskej abecedy je nahradené náhodným písmenom anglickej abecedy
+# Ak chcete zmeniť kľúč, môžete zmeniť písmená v tejto tabuľke
+# Ale musíte sa uistiť, že každé písmeno je nahradené práve jedným písmenom a naopak
+kluc = {
+    "A": "Q",
+    "B": "W",
+    "C": "E",
+    "D": "R",
+    "E": "T",
+    "F": "Y",
+    "G": "U",
+    "H": "I",
+    "I": "O",
+    "J": "P",
+    "K": "A",
+    "L": "S",
+    "M": "D",
+    "N": "F",
+    "O": "G",
+    "P": "H",
+    "Q": "J",
+    "R": "K",
+    "S": "L",
+    "T": "Z",
+    "U": "X",
+    "V": "C",
+    "W": "V",
+    "X": "B",
+    "Y": "N",
+    "Z": "M",
+    "Á": "E",
+    "Ä": "I",
+    "Č": "X",
+    "Ď": "C",
+    "É": "U",
+    "Í": "O",
+    "Ľ": "V",
+    "Ĺ": "Z",
+    "Ň": "B",
+    "Ó": "G",
+    "Ô": "T",
+    "Ŕ": "N",
+    "Š": "Q",
+    "Ť": "W",
+    "Ú": "Y",
+    "Ý": "R",
+    "Ž": "P"
+}
+
+# Toto je funkcia, ktorá zašifruje správu podľa kľúča
+# Vstupom je otvorený text, ktorý chceme zašifrovať
+# Výstupom je zašifrovaný text, ktorý môžeme poslať
+def sifruj(sprava):
+    # Vytvoríme prázdny reťazec, ktorý bude obsahovať zašifrovaný text
+    sifra = ""
+    # Prejdeme každý znak v správe
+    for znak in sprava:
+        # Ak je znak písmeno, nahradíme ho písmenom z kľúča
+        if znak.isalpha():
+            # Zmeníme znak na veľké písmeno, aby sme ho našli v kľúči
+            znak = znak.upper()
+            # Pridáme písmeno z kľúča do zašifrovaného textu
+            sifra += kluc[znak]
+        # Ak nie je znak písmeno, necháme ho tak, ako je
+        else:
+            # Pridáme znak do zašifrovaného textu
+            sifra += znak
+    # Vrátime zašifrovaný text
+    return sifra
+
+# Toto je funkcia, ktorá odšifruje správu podľa kľúča
+# Vstupom je zašifrovaný text, ktorý sme dostali
+# Výstupom je otvorený text, ktorý chceme prečítať
+def desifruj(sifra):
+    # Vytvoríme prázdny reťazec, ktorý bude obsahovať otvorený text
+    sprava = ""
+    # Prejdeme každý znak v zašifrovanom texte
+    for znak in sifra:
+        # Ak je znak písmeno, nájdeme ho v kľúči a nahradíme ho pôvodným písmenom
+        if znak.isalpha():
+            # Zmeníme znak na veľké písmeno, aby sme ho našli v kľúči
+            znak = znak.upper()
+            # Prejdeme všetky písmená v kľúči
+            for pismeno in kluc:
+                # Ak sme našli písmeno, ktoré zodpovedá zašifrovanému znaku
+                if kluc[pismeno] == znak:
+                    # Pridáme pôvodné písmeno do otvoreného textu
+                    sprava += pismeno
+                    # Ukončíme hľadanie
+                    break
+        # Ak nie je znak písmeno, necháme ho tak, ako je
+        else:
+            # Pridáme znak do otvoreného textu
+            sprava += znak
+    # Vrátime otvorený text
+    return sprava
+
+# Toto je príklad, ako použiť tieto funkcie
+# Môžete si vyskúšať vlastné správy a kľúče
+# Napíšte správu, ktorú chcete zašifrovať
+sprava = "Ahoj, ako sa máš?"
+# Zavolajte funkciu sifruj a uložte výsledok do premennej sifra
+sifra = sifruj(sprava)
+# Vypíšte zašifrovanú správu
+print("Zašifrovaná správa je:", sifra)
+# Zavolajte funkciu desifruj a uložte výsledok do premennej sprava
+sprava = desifruj(sifra)
+# Vypíšte odšifrovanú správu
+print("Odšifrovaná správa je:", sprava)
