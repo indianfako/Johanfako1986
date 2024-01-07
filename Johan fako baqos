@@ -1,0 +1,43 @@
+# Definícia triedy Account
+class Account:
+    # Konštruktor triedy
+    def __init__(self, phone_number, tokens):
+        self.phone_number = phone_number # Telefónne číslo účtu
+        self.tokens = tokens # Počet tokenov na účte
+
+    # Metóda, ktorá vytvorí nové tokeny na účte
+    def create_tokens(self, amount):
+        self.tokens += amount # Pripočítame počet nových tokenov k existujúcim
+        print(f"{self.phone_number} created {amount} tokens.")
+
+    # Metóda, ktorá pošle tokeny z účtu na iný účet
+    def send_tokens(self, receiver, amount):
+        if self.tokens >= amount: # Skontrolujeme, či máme dostatok tokenov na odoslanie
+            self.tokens -= amount # Odpočítame počet odoslaných tokenov od existujúcich
+            receiver.tokens += amount # Pripočítame počet prijatých tokenov k existujúcim na príjemcovom účte
+            print(f"{self.phone_number} sent {amount} tokens to {receiver.phone_number}.")
+        else: # Ak nemáme dostatok tokenov, vypíšeme chybové hlásenie
+            print(f"{self.phone_number} does not have enough tokens to send {amount} tokens to {receiver.phone_number}.")
+
+    # Metóda, ktorá vráti počet tokenov na účte
+    def get_balance(self):
+        return self.tokens
+
+# Vytvorenie inštancií triedy Account
+alice = Account("0912345678", 0) # Alice má účet s telefónnym číslom 0912345678 a 0 tokenmi
+bob = Account("0987654321", 0) # Bob má účet s telefónnym číslom 0987654321 a 0 tokenmi
+
+# Alice vytvorí 1000000000 tokenov na svojom účte
+alice.create_tokens(1000000000)
+
+# Bob vytvorí 10000000 tokenov na svojom účte
+bob.create_tokens(10000000)
+
+# Alice pošle 100000000 tokenov z jej účtu na Bobov účet
+alice.send_tokens(bob, 100000000)
+
+# Zobrazíme zostatok Alice
+print(f"Alice has {alice.get_balance()} tokens.")
+
+# Zobrazíme zostatok Boba
+print(f"Bob has {bob.get_balance()} tokens.")
