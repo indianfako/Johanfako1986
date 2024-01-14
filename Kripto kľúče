@@ -1,0 +1,54 @@
+import os
+import binascii
+import ecdsa
+
+# Generate a random private key
+private_key = os.urandom(32)
+print("Private key (32 bytes):", binascii.hexlify(private_key))
+
+# Convert the private key to the corresponding public key
+public_key = ecdsa.SigningKey.from_string(private_key, curve=ecdsa.SECP256k1).verifying_key.to_string()
+print("Public key (64 bytes):", binascii.hexlify(public_key))
+const crypto = require('crypto');
+const secp256k1 = require('secp256k1');
+
+// Generate a random private key
+let privateKey;
+do {
+  privateKey = crypto.randomBytes(32);
+} while (!secp256k1.privateKeyVerify(privateKey));
+console.log("Private key (32 bytes):", privateKey.toString('hex'));
+
+// Convert the private key to the corresponding public key
+const publicKey = secp256k1.publicKeyCreate(privateKey);
+console.log("Public key (64 bytes):", publicKey.toString('hex'));
+#include <iostream>
+#include <random>
+#include <sodium.h>
+
+// Generate a random private key
+std::random_device rd;
+std::uniform_int_distribution<uint64_t> dist(0, UINT64_MAX);
+uint64_t private_key[4];
+for (int i = 0; i < 4; i++) {
+  private_key[i] = dist(rd);
+}
+// Clamp the private key to the curve25519 scalar range
+private_key[0] &= 0xFFFFFFFFFFFFFFF8;
+private_key[1] &= 0xFFFFFFFFFFFFFFFF;
+private_key[2] &= 0xFFFFFFFFFFFFFFFF;
+private_key[3] &= 0x7FFFFFFFFFFFFFFF;
+std::cout << "Private key (32 bytes): ";
+for (int i = 0; i < 4; i++) {
+  std::cout << std::hex << private_key[i];
+}
+std::cout << std::endl;
+
+// Convert the private key to the corresponding public key
+unsigned char public_key[32];
+crypto_scalarmult_base(public_key, (unsigned char*)private_key);
+std::cout << "Public key (32 bytes): ";
+for (int i = 0; i < 32; i++) {
+  std::cout << std::hex << (int)public_key[i];
+}
+std::cout << std::endl;
