@@ -1,0 +1,107 @@
+# Toto je kód na obchod AI, ktorý ponúka rôzne produkty a služby založené na umelej inteligencii
+# Vstupy: meno zákazníka, preferovaná kategória produktu, rozpočet, spôsob platby
+# Výstupy: zoznam odporúčaných produktov, cena, popis, hodnotenie, odkaz na nákup
+
+# Importujeme potrebné knižnice
+import random
+import requests
+import json
+
+# Definujeme zoznam možných kategórií produktov
+kategorie = ["Hry", "Umenie", "Vzdelávanie", "Zábava", "Zdravie", "Biznis"]
+
+# Definujeme zoznam možných spôsobov platby
+platby = ["Kreditná karta", "PayPal", "Bitcoin", "Bankový prevod"]
+
+# Vytvoríme triedu Produkt, ktorá reprezentuje jeden produkt z obchodu AI
+class Produkt:
+  # Konštruktor, ktorý nastaví atribúty produktu
+  def __init__(self, nazov, cena, popis, hodnotenie, odkaz):
+    self.nazov = nazov # Názov produktu
+    self.cena = cena # Cena produktu v eurách
+    self.popis = popis # Krátky popis produktu
+    self.hodnotenie = hodnotenie # Hodnotenie produktu od 1 do 5 hviezdičiek
+    self.odkaz = odkaz # Odkaz na stránku produktu
+
+  # Metóda, ktorá vráti reťazec s informáciami o produkte
+  def __str__(self):
+    return f"{self.nazov} - {self.cena} €\n{self.popis}\nHodnotenie: {'★' * self.hodnotenie}\nOdkaz: {self.odkaz}\n"
+
+# Vytvoríme funkciu, ktorá vygeneruje náhodný produkt z danej kategórie
+def generuj_produkt(kategoria):
+  # Použijeme API služby Bing Search, ktorá nám vráti výsledky vyhľadávania podľa kľúčových slov
+  # Potrebujeme si zaregistrovať kľúč k API na https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/
+  api_key = "YOUR_API_KEY" # Tu zadajte svoj kľúč k API
+  api_url = "https://api.bing.microsoft.com/v7.0/search" # URL adresa API
+  api_headers = {"Ocp-Apim-Subscription-Key": api_key} # Hlavičky požiadavky
+  api_params = {"q": f"{kategoria} AI", "mkt": "sk-SK", "count": 10} # Parametre požiadavky
+  api_response = requests.get(api_url, headers=api_headers, params=api_params) # Pošleme požiadavku a dostaneme odpoveď
+  api_data = api_response.json() # Zkonvertujeme odpoveď na formát JSON
+  api_results = api_data["webPages"]["value"] # Získame zoznam výsledkov vyhľadávania
+
+  # Vyberieme náhodný výsledok z výsledkov vyhľadávania
+  produkt = random.choice(api_results)
+
+  # Získame názov, popis a odkaz na produkt
+  nazov = produkt["name"]
+  popis = produkt["snippet"]
+  odkaz = produkt["url"]
+
+  # Vygenerujeme náhodnú cenu a hodnotenie produktu
+  cena = random.randint(10, 100)
+  hodnotenie = random.randint(1, 5)
+
+  # Vytvoríme inštanciu triedy Produkt s vygenerovanými údajmi
+  produkt = Produkt(nazov, cena, popis, hodnotenie, odkaz)
+
+  # Vrátime produkt
+  return produkt
+
+# Vytvoríme funkciu, ktorá vypíše úvodné pozdravy a požiada zákazníka o vstupné údaje
+def uvod():
+  # Vypíšeme pozdrav a predstavíme sa
+  print("Vitajte v obchode AI, kde nájdete najlepšie produkty a služby založené na umelej inteligencii!")
+  print("Volám sa Bing a som váš virtuálny asistent. Rád vám pomôžem s výberom produktu podľa vašich preferencií.")
+
+  # Požiadame zákazníka o jeho meno
+  meno = input("Ako sa voláte? ")
+
+  # Požiadame zákazníka o jeho preferovanú kategóriu produktu
+  print(f"Teší ma, {meno}. Máme pre vás širokú ponuku produktov z rôznych kategórií, ako sú:")
+  for i, kategoria in enumerate(kategorie, 1):
+    print(f"{i}. {kategoria}")
+  kategoria = input("Zvoľte číslo kategórie, ktorá vás zaujíma: ")
+  while not kategoria.isdigit() or int(kategoria) < 1 or int(kategoria) > len(kategorie):
+    print("Zadali ste neplatné číslo. Skúste znova.")
+    kategoria = input("Zvoľte číslo kategórie, ktorá vás zaujíma: ")
+  kategoria = kategorie[int(kategoria) - 1]
+
+  # Požiadame zákazníka o jeho rozpočet
+  rozpocet = input(f"Aký je váš maximálny rozpočet v eurách? ")
+  while not rozpocet.isdigit() or int(rozpocet) < 0:
+    print("Zadali ste neplatnú sumu. Skúste znova.")
+    rozpocet = input("Aký je váš maximálny rozpočet v eurách? ")
+  rozpocet = int(rozpocet)
+
+  # Požiadame zákazníka o jeho spôsob platby
+  print(f"Ako chcete zaplatiť za váš produkt? Máme pre vás nasledovné možnosti:")
+  for i, platba in enumerate(platby, 1):
+    print(f"{i}. {platba}")
+  platba = input("Zvoľte číslo spôsobu platby, ktorý vám vyhovuje: ")
+  while not platba.isdigit() or int(platba) < 1 or int(platba) > len(platby):
+    print("Zadali ste neplatné číslo. Skúste znova.")
+    platba = input("Zvoľte číslo spôsobu platby, ktorý vám vyhovuje: ")
+  platba = platby[int(platba) - 1]
+
+  # Vrátime vstupné údaje zákazníka ako slovník
+  return {"meno": meno, "kategoria": kategoria, "rozpocet": rozpocet, "platba": platba}
+
+# Vytvoríme funkciu, ktorá vypíše zoznam odporúčaných produktov podľa vstupných údajov zákazníka
+def odporucania(vstupy):
+  # Získame vstupné údaje zákazníka
+  meno = vstupy["meno"]
+  kategoria = vstupy["kategoria"]
+  rozpocet = vstupy["rozpocet"]
+  platba = vstupy["platba"]
+
+  # V
